@@ -1,0 +1,12 @@
+langchain
+langchain-community
+langchain-core
+langchain-openai
+langchain-google-genai
+langchain-community
+langchain-text-splitters
+langgraph
+python-dotenv
+black
+isort
+ipykernel
