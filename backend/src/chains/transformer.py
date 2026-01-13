@@ -8,9 +8,11 @@ After that add all the relevant details to the query for better engaging content
 the transformed query. Where we will pass the transformed query to an LLM to generate the post.
 """
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", SYSTEM_PROMPT),
-    ("user", "Transform the following query for better engaging content: {query}"),
-])
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", SYSTEM_PROMPT),
+        ("user", "Transform the following query for better engaging content: {query}"),
+    ]
+)
 
 transformer_chain = prompt | OPENAI_LLM | StrOutputParser()

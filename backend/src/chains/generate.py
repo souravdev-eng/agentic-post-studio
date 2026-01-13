@@ -20,9 +20,11 @@ Guidelines:
 The post should feel personal, relatable, and written by a human — not generated.
 """
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", SYSTEM_PROMPT),
-    ("user", "Write a post about the following topic: {transformed_query}"),
-])
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", SYSTEM_PROMPT),
+        ("user", "Write a post about the following topic: {transformed_query}"),
+    ]
+)
 
 generate_chain = prompt | OPENAI_LLM | StrOutputParser()

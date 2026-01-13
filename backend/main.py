@@ -1,11 +1,30 @@
-from src.workflows.graph import compiled_graph
+from src.routes.generate_post import generate_post
+from src.routes.generate_post import PostRequest, PostResponse
+from fastapi import FastAPI
+import uvicorn
+
+app = FastAPI(title="Agentic Post Studio API", version="1.0.0")
+
+
+@app.get("/")
+def read_root():
+    return {
+        "message": "Welcome to Agentic Post Studio API",
+        "endpoints": ["/docs", "/generate-post"],
+    }
+
+
+@app.get("/health")
+def health_check():
+    """Check if the API is running."""
+    return {"status": "healthy", "service": "agentic-post-studio"}
+
+
+@app.post("/generate-post", response_model=PostResponse)
+async def generate_post_route(request: PostRequest):
+    """Generate a post based on the provided query."""
+    return await generate_post(request)
 
 
 if __name__ == "__main__":
-    # compiled_graph.get_graph().draw_mermaid_png(output_file="workflow.png")
-    query = "Write a post about how I turn from a supermarket sales boy to an Software Engineer."
-    result = compiled_graph.invoke({"query": query})
-    print(f"Query: {query}")
-    print("-" * 50)
-    print("Generated Post:")
-    print(result.get("generated_post", "No generated post"))
+    uvicorn.run(app, host="0.0.0.0", port=8000)
